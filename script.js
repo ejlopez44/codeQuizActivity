@@ -32,14 +32,13 @@ var qFour = {
     answer: "Bajaj"
 }
 
+//Globally scoped variables
+var questionBlk = document.getElementById('questionBlk')
+var startBtn = document.getElementById('startbtn')
+var score = ""
+var highScores = {}
 
-
-
-
-
-var startQuizBtn = document.getElementById('startQuiz')
-
-// Quiz Timer related variables and functions
+// Quiz Timer function
 
 var quizTimer = function () {
     var countDown = document.getElementById('countdown')
@@ -56,13 +55,11 @@ var quizTimer = function () {
 }
 
 //question object calling and display function
-
 function presentQuestion(obj) {
-
-
 }
-
-
-
-
-startQuizBtn.addEventListener('click', quizTimer)
+//Quiz Starting
+function startQuiz() {
+    alert('quiz is starting')
+    startBtn.style.display = "none"
+}
+startBtn.addEventListener('click', startQuiz)
