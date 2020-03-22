@@ -1,6 +1,6 @@
 //Question Objects
 var qOne = {
-    Question: "Who makes the best motorcycles",
+    Question: "Who makes the best motorcycles?",
     choiceA: "USA",
     choiceB: "Germany",
     choiceC: "Italy",
@@ -54,12 +54,39 @@ var quizTimer = function () {
     }, 1000);
 }
 
-//question object calling and display function
-function presentQuestion(obj) {
-}
 //Quiz Starting
 function startQuiz() {
-    alert('quiz is starting')
-    startBtn.style.display = "none"
+    ///These two lines remove Start button and Description
+    startBtn.style.display = "none";
+    document.getElementById('quizDescription').style.display = "none";
+    // This function calls the function that creates elements for Question and Button Choice elements
+    presentQuestion(qOne);
 }
+
+// This block of code updates the question/heading block & takes in the Object names and creates buttons foreach choice...
+
+function presentQuestion(question) {
+    questionBlk.innerText = question.Question
+    var choiceBtn1 = document.createElement('button');
+    choiceBtn1.textContent = question.choiceA
+    document.getElementById('btnBlock').appendChild(choiceBtn1)
+
+    var choiceBtn2 = document.createElement('button');
+    choiceBtn2.textContent = question.choiceB
+    document.getElementById('btnBlock').appendChild(choiceBtn2)
+
+    var choiceBtn3 = document.createElement('button');
+    choiceBtn3.textContent = question.choiceC
+    document.getElementById('btnBlock').appendChild(choiceBtn3)
+
+    var choiceBtn4 = document.createElement('button');
+    choiceBtn4.textContent = question.choiceD
+    document.getElementById('btnBlock').appendChild(choiceBtn4)
+
+}
+//need to call presentQuestion and give it a parameter
+
 startBtn.addEventListener('click', startQuiz)
+
+
+
