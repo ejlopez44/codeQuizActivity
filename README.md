@@ -12,15 +12,44 @@ Project Goals:
 - viewable highscore list
 
 
-v2
-- added header & container elements
-- added initial content tags for: 
-    - "View Highscores" link
-    - "Timer: " (to be updated )
-    - H tag for Title & Questions
-    - p tag for description of quiz
+https://ejlopez44.github.io/codeQuizActivity/
 
-v1
-- Create Repo, Create ReadMe
+v0 Create Repo, Create ReadMe
+
+v1 
 - Create html, css, js files, link BS, apply title
-- Create Quiz theme (Motorcycle Enthusiast)
+
+v2 
+- Create Quiz theme and basic object content
+
+v3 add initial BS html elements
+- header (link to view highscores, set to align left)(timer, set to align right, waits for start of quiz button)
+- Container
+- Create grid to dictate initial spacing
+- H tag for Heading/Questions
+- P tag for description of quiz
+
+v4 more html incorporations
+- created start button
+- created multiple choice buttons
+
+v5
+- Created timer function
+- Created event listener for quiz start button to call timer function
+
+v6
+- created function to display question and forloop to create button elements for question objects
+
+v7
+- Implemented temporary Skip button to move through questions
+
+v8
+- Created Highscores div that is toggleable
+
+v9
+- added eventlistener to each button
+- Implemented True or False (Correct or Wrong functionality)
+- reports to console for now
+
+v10 
+- Restyled Buttons
