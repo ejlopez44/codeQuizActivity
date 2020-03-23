@@ -16,8 +16,8 @@
 <body>
     <!--Header-->
     <header>
-        <button id="highScoresBtn">View Highscores</button>
-        <p id="countdown">Timer: 100</p>
+        <button id="highScoresBtn" class="btn">View Highscores</button>
+        <p id="countdown" class="text-align: center">Timer: 100</p>
     </header>
     <div class="container">
         <div class="row">
@@ -30,7 +30,7 @@
                 </p>
                 <div class="row">
                     <div id="btnBlock" class="col-md-3">
-                        <button id="startbtn">Start Quiz</button>
+                        <button id="startbtn" class="btn btn-primary btn-sm">Start Quiz</button>
                     </div>
                     <div id="sideRow" class="col">
                     </div>
@@ -39,13 +39,15 @@
             <!-- View Scores Div-->
             <div id="highScoresBox" class="col-md-8" style="display: none;">
                 <h2>Highscores</h2>
-                <p id="results">Ready for text to add about score & timer etc</p>
+                <p id="results"></p>
                 <div class="row">
                     <div id="btnBlock" class="col-md-3">
-                        <button id="backBtn">Back</button>
+                        <a href="index.html">Back</a>
+                        <!-- <button id="backBtn">Back</button> -->
                     </div>
-                    <div id="sideRow" class="col">
-                    </div>
+                    <form id="logScore" style="display: none;">
+                        <input>Put your name here</input>
+                    </form>
                 </div>
             </div>
         </div>

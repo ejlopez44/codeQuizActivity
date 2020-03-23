@@ -28,22 +28,26 @@ var questionArray = [
         { choice: "Bimota", answer: false },
         { choice: "Aprilia", answer: false },
         { choice: "Bajaj", answer: true },
-    ]]
+    ]
+]
 
 
 //Globally scoped variables
 var questionBlk = document.getElementById('questionBlk')
 var startBtn = document.getElementById('startbtn')
-var endScreen = document.querySelector('#endscreen')
 var questionIndex = 0;
-var currentScore = 0;
-
+// necessary to globally alter time remaining if answer is incorrect
+var secondsLeft = 100;
+// not currently utilized
+var yourTime = "";
 
 //Highscores Box Variables
 var highScoresBtn = document.getElementById('highScoresBtn')
 highScoresBtn.addEventListener('click', viewScores)
 var highScoresBox = document.getElementById('highScoresBox')
-var highScores = {}
+var highScores = [
+    { Name: "Tito", Score: 25 }
+]
 
 function viewScores() {
     var quizCont = document.getElementById('quizContainer')
@@ -54,17 +58,11 @@ function viewScores() {
         highScoresBox.style.display = "none"
         quizCont.style.display = "initial"
     }
-    var backBtn = document.getElementById('backBtn')
-    backBtn.addEventListener('click', viewScores)
 }
 
-
-
 // Quiz Timer function
-
 var quizTimer = function () {
     var countDown = document.getElementById('countdown')
-    var secondsLeft = 100;
     var timerInterval = setInterval(function () {
         secondsLeft--;
         countDown.textContent = "Timer: " + secondsLeft;
@@ -82,42 +80,48 @@ function startQuiz() {
     ///These two lines remove Start button and Description
     startBtn.style.display = "none";
     document.getElementById('quizDescription').style.display = "none";
-    nextQuestion();
-    //foreach loop that will allow quiz to transition through each question, IF receives a button input...?
-
-    //This calls the timer function
     quizTimer();
-}
-// This extra function may be unnecesary but could be useful for creating a loop to get through the questionIndex
-function nextQuestion() {
     presentQuestion(questionArray[questionIndex]);
-
+    // temporary skip button to move between
     var skipBtn = document.createElement('button');
     skipBtn.textContent = " Skip ";
     document.querySelector('#sideRow').appendChild(skipBtn);
     skipBtn.addEventListener('click', reset)
 }
-
+// resets for next question object creation and checks for if quiz is completed
 function reset() {
     var btnBlock = document.getElementById('btnBlock')
     while (btnBlock.hasChildNodes()) {
         btnBlock.removeChild(btnBlock.firstChild);
     }
-    if (questionIndex === questionIndex.length - 1) {
+    if (questionIndex === questionArray.length) {
+        console.log(questionIndex, questionArray.length)
         quizOver();
     } else {
+        console.log(questionIndex, questionArray.length)
         presentQuestion(questionArray[questionIndex])
     }
 }
-
+//displays view scores screen, reports your score and gives option to add your score to the list of scores
 function quizOver() {
-    endScreen.style.display = "initial"
+    yourTime = secondsLeft;
+    alert('That\'s the end')
+    viewScores();
+    document.getElementById('results').textContent = "You finished with " + secondsLeft + " remaining."
+    var nameInputField = document.getElementById('logScore').style.display = "initial"
+    nameInputField.addEventListener('submit', saveHighScore)
+}
+
+function saveHighScore(event) {
+    event.preventDefault();
+
 }
 
 
 
 // This block of code updates the question/heading block, takes in the Object names and creates buttons for each choice...
 function presentQuestion(question) {
+    console.log(questionIndex, questionArray.length)
     questionBlk.innerText = question[0].Question
     questionIndex++;
     // this loops through the remaining objects of the question arrary and creates a button for each one with it's string
@@ -126,8 +130,11 @@ function presentQuestion(question) {
         var choiceBtn = document.createElement('button');
         // This line applies the string of text to the button
         choiceBtn.textContent = question[i].choice
-        // This line is necessary to call if a button has a dataset entry
-        choiceBtn.classList.add('btnVal')
+        // These lines just style the button nicely
+        choiceBtn.classList.add('btn')
+        choiceBtn.classList.add('btn-primary')
+        choiceBtn.classList.add('btn-sm')
+        choiceBtn.classList.add('mybtn')
         //This line creates the button element
         document.getElementById('btnBlock').appendChild(choiceBtn)
         choiceBtn.addEventListener('click', checkChoice)
@@ -135,27 +142,17 @@ function presentQuestion(question) {
             choiceBtn.dataset.answer = question[i].answer
     }
 }
-
+//Checks if there is a true dataset value applied
 function checkChoice(param) {
     if (this.dataset.answer === "true") {
         console.log('it works')
+        reset()
     } else {
         console.log('shit')
+        secondsLeft = secondsLeft - 15
+        reset()
     }
 }
-
-
-//  each button needs a function that... 
-//checks if true(correct) or false(wrong)
-// moves you to the next question (re calls function for the next Question) 
-// displays a message of the result. 
-//Diminishes time on clock dependent on wrong answer.
-
-
-
-
-
-//need to call presentQuestion and give it a parameter
 
 startBtn.addEventListener('click', startQuiz)
 
