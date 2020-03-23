@@ -34,9 +34,31 @@ var questionArray = [
 //Globally scoped variables
 var questionBlk = document.getElementById('questionBlk')
 var startBtn = document.getElementById('startbtn')
+var endScreen = document.querySelector('#endscreen')
 var questionIndex = 0;
 var currentScore = 0;
+
+
+//Highscores Box Variables
+var highScoresBtn = document.getElementById('highScoresBtn')
+highScoresBtn.addEventListener('click', viewScores)
+var highScoresBox = document.getElementById('highScoresBox')
 var highScores = {}
+
+function viewScores() {
+    var quizCont = document.getElementById('quizContainer')
+    if (highScoresBox.style.display === "none") {
+        quizCont.style.display = "none"
+        highScoresBox.style.display = "initial";
+    } else {
+        highScoresBox.style.display = "none"
+        quizCont.style.display = "initial"
+    }
+
+
+}
+
+
 
 // Quiz Timer function
 
@@ -54,40 +76,26 @@ var quizTimer = function () {
     }, 1000);
 }
 
-//Quiz Starting version 1
-// function startQuiz() {
-//     ///These two lines remove Start button and Description
-//     startBtn.style.display = "none";
-//     document.getElementById('quizDescription').style.display = "none";
-//     // This function calls the function that creates elements for Question and Button Choice elements
-//     presentQuestion(questionArray[0]);
-//     //This calls the timer function
-//     quizTimer();
-// }
-
-//Quiz Start version 2 with loop
-function nextQuestion() {
-    presentQuestion(questionArray[questionIndex]);
-
-    var skipBtn = document.createElement('button');
-    skipBtn.textContent = " Skip ";
-    document.querySelector('#sideRow').appendChild(skipBtn);
-    skipBtn.addEventListener('click', skipToNext)
-}
-
+//Quiz Start
 function startQuiz() {
+    questionIndex = 0;
     ///These two lines remove Start button and Description
     startBtn.style.display = "none";
     document.getElementById('quizDescription').style.display = "none";
     nextQuestion();
     //foreach loop that will allow quiz to transition through each question, IF receives a button input...?
 
-
-
-    // This function calls the function that creates elements for Question and Button Choice elements
-
     //This calls the timer function
     quizTimer();
+}
+// This extra function may be unnecesary but could be useful for creating a loop to get through the questionIndex
+function nextQuestion() {
+    presentQuestion(questionArray[questionIndex]);
+
+    var skipBtn = document.createElement('button');
+    skipBtn.textContent = " Skip ";
+    document.querySelector('#sideRow').appendChild(skipBtn);
+    skipBtn.addEventListener('click', reset)
 }
 
 function reset() {
@@ -95,12 +103,20 @@ function reset() {
     while (btnBlock.hasChildNodes()) {
         btnBlock.removeChild(btnBlock.firstChild);
     }
+    if (questionIndex === questionIndex.length - 1) {
+        quizOver();
+    } else {
+        presentQuestion(questionArray[questionIndex])
+    }
+}
+
+function quizOver() {
+    endScreen.style.display = "initial"
 }
 
 
 
-// This block of code updates the question/heading block & takes in the Object names and creates buttons foreach choice...
-
+// This block of code updates the question/heading block, takes in the Object names and creates buttons for each choice...
 function presentQuestion(question) {
     questionBlk.innerText = question[0].Question
     questionIndex++;
@@ -119,11 +135,6 @@ function presentQuestion(question) {
     }
     // !!!!!! THIS NEEDS TO BE CODED
     //choiceBtn.addEventListener('click', checkChoice)
-}
-
-function skipToNext() {
-    reset()
-    presentQuestion(questionArray[questionIndex])
 }
 
 // function checkChoice(param) {
