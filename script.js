@@ -38,16 +38,14 @@ var startBtn = document.getElementById('startbtn')
 var questionIndex = 0;
 // necessary to globally alter time remaining if answer is incorrect
 var secondsLeft = 100;
-// not currently utilized
-var yourTime = "";
+var yourTime = 0;
+var nameInputField = document.getElementById('nameInput')
 
 //Highscores Box Variables
 var highScoresBtn = document.getElementById('highScoresBtn')
 highScoresBtn.addEventListener('click', viewScores)
 var highScoresBox = document.getElementById('highScoresBox')
-var highScores = [
-    { Name: "Tito", Score: 25 }
-]
+
 
 function viewScores() {
     var quizCont = document.getElementById('quizContainer')
@@ -107,15 +105,22 @@ function quizOver() {
     yourTime = secondsLeft;
     alert('That\'s the end')
     viewScores();
-    document.getElementById('results').textContent = "You finished with " + secondsLeft + " remaining."
-    var nameInputField = document.getElementById('logScore').style.display = "initial"
-    nameInputField.addEventListener('submit', saveHighScore)
+    document.getElementById('results').textContent = "You finished with " + yourTime + " seconds remaining."
+    document.getElementById('hsForm').style.display = "initial"
 }
+var submitBtn = document.getElementById('submit')
+submitBtn.addEventListener('click', saveHighScore)
 
 function saveHighScore(event) {
     event.preventDefault();
-
+    var user = {
+        Name: nameInputField.value,
+        Score: yourTime
+    };
+    console.log(user);
+    localStorage.setItem("user", JSON.stringify(user));
 }
+
 
 
 
@@ -149,7 +154,7 @@ function checkChoice(param) {
         reset()
     } else {
         console.log('shit')
-        secondsLeft = secondsLeft - 15
+        secondsLeft = secondsLeft - 35
         reset()
     }
 }
