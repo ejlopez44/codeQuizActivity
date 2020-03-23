@@ -54,8 +54,8 @@ function viewScores() {
         highScoresBox.style.display = "none"
         quizCont.style.display = "initial"
     }
-
-
+    var backBtn = document.getElementById('backBtn')
+    backBtn.addEventListener('click', viewScores)
 }
 
 
@@ -130,16 +130,19 @@ function presentQuestion(question) {
         choiceBtn.classList.add('btnVal')
         //This line creates the button element
         document.getElementById('btnBlock').appendChild(choiceBtn)
+        choiceBtn.addEventListener('click', checkChoice)
         if (question[i].answer)
             choiceBtn.dataset.answer = question[i].answer
     }
-    // !!!!!! THIS NEEDS TO BE CODED
-    //choiceBtn.addEventListener('click', checkChoice)
 }
 
-// function checkChoice(param) {
-//     if ()
-// }
+function checkChoice(param) {
+    if (this.dataset.answer === "true") {
+        console.log('it works')
+    } else {
+        console.log('shit')
+    }
+}
 
 
 //  each button needs a function that... 
